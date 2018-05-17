@@ -15,7 +15,7 @@
     <bean id="jobDetail_1" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <!-- 执行的类 -->
         <property name="targetObject">
-            <ref bean="job1" />
+            <ref bean="job1"/>
         </property>
         <!-- 类中的方法 -->
         <property name="targetMethod">
@@ -24,11 +24,17 @@
     </bean>
     <bean id="cronTrigger_1" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail">
-            <ref bean="jobDetail_1" />
+            <ref bean="jobDetail_1"/>
         </property>
         <!-- 每一秒钟执行一次 -->
         <property name="cronExpression">
-            <value>0/3 * * * * ?</value>
+            <value>0 0/1 * * * ?</value>
+        </property>
+        <property name="misfireInstruction">
+            <value>1</value>
+        </property>
+        <property name="priority">
+            <value>1</value>
         </property>
     </bean>
 
@@ -36,7 +42,7 @@
     <bean name="job2" class="com.hzl.web.quartz.Job2"/>
     <bean id="jobDetail_2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject">
-            <ref bean="job2" />
+            <ref bean="job2"/>
         </property>
         <property name="targetMethod">
             <value>execute</value>
@@ -44,10 +50,18 @@
     </bean>
     <bean id="cronTrigger_2" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail">
-            <ref bean="jobDetail_2" />
+            <ref bean="jobDetail_2"/>
         </property>
         <property name="cronExpression">
-            <value>0/2 * * * * ?</value>
+            <value>0 0/2 * * * ?</value>
+        </property>
+        <!-- CronTrigger.MISFIRE_INSTRUCTION_FIRE_ONCE_NOW  立即执行-->
+        <property name="misfireInstruction">
+            <value>1</value>
+        </property>
+        <!-- 数值越大优先级越高-->
+        <property name="priority">
+            <value>3</value>
         </property>
     </bean>
 
@@ -56,8 +70,8 @@
         <!-- 添加触发器 -->
         <property name="triggers">
             <list>
-                <ref bean="cronTrigger_1" />
-                <ref bean="cronTrigger_2" />
+                <ref bean="cronTrigger_1"/>
+                <ref bean="cronTrigger_2"/>
             </list>
         </property>
     </bean>
