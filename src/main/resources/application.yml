@@ -28,9 +28,16 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
   thymeleaf:
     cache: false
+  data:
+    elasticsearch:
+      cluster-nodes: 192.168.159.130:9300
+      cluster-name: hzl-es
+      repositories:
+        enabled: true
 server:
   servlet:
      context-path: /hzl
+  port: 5555
 logging:
   level:
     com.hzl.web: debug
